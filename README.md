@@ -8,4 +8,4 @@ than anything else.
 
 ## Running
 
-Can use a virtualenv, although there isn't much here for now. Quickest way is to use python ./manage.py runserver. 
+Can use a virtualenv, although there isn't much here for now. Quickest way is to use python ./manage.py runserver.
