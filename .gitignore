@@ -1,6 +1,2 @@
 # user specific stuff
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionairies
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
+.idea/*
