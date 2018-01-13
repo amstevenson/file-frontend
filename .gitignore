@@ -1,2 +1,4 @@
 # user specific stuff
 .idea/*
+file_frontend/__pycache__/*
+file_frontend/routes/__pycache__/*
