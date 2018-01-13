@@ -4,3 +4,4 @@ import os
 APP_NAME = os.environ["APP_NAME"] = "file_frontend"
 COMMIT = os.environ["COMMIT"] = "LOCALE"
 FILE_API_URI = os.environ["FILE_API_URI"] = "add when here"
+LOG_LEVEL = os.environ["LOG_LEVEL"] = "DEBUG"

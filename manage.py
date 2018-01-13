@@ -9,9 +9,6 @@ manager = Manager(app)
 def runserver(port=9997):
     """Run the app using flask server"""
     os.environ["PYTHONUNBUFFERED"] = "yes"
-    os.environ["LOG_LEVEL"] = "DEBUG"
-    os.environ["COMMIT"] = "LOCAL"
-    os.environ["FILE_API_URI"] = "To add"
 
     app.run(debug=True, port=int(port))
 
