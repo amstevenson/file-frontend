@@ -1,4 +1,4 @@
-from file_frontend.routes.health import health
+from file_frontend.routes import health
 
 
 def register_blueprints(app):
