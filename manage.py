@@ -1,6 +1,5 @@
 from flask_script import Manager
 from file_frontend.main import app
-import os
 
 manager = Manager(app)
 
