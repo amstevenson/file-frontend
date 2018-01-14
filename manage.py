@@ -6,9 +6,10 @@ manager = Manager(app)
 
 
 @manager.command
-def runserver(port=9997):
+def runserver(port=8080):
     """Run the app using flask server"""
-    os.environ["PYTHONUNBUFFERED"] = "yes"
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
 
     app.run(debug=True, port=int(port))
 
