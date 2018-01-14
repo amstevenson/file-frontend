@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, request
 from file_frontend.services.file_api import FileApi
 import logging
-import json
 
 file = Blueprint('file', __name__)
 
@@ -22,10 +21,10 @@ def send_file():
     session['file_path'] = 'file_path'
 
     # if radio button is google drive selected
-    return send_google_drive()
+    return send_to_google_drive()
 
 
-def send_google_drive():
+def send_to_google_drive():
     # Authorise account with Google Drive. Once authorised, it will automatically make
     # a callback to this method because of a configured redirect rule (see readme)
     if 'credentials' not in session:
@@ -33,13 +32,22 @@ def send_google_drive():
         file_api_client = FileApi()
         drive_auth_json = file_api_client.authorise_drive_account()
         session['state'] = drive_auth_json['state']
-        session['url'] = drive_auth_json['url']
         return redirect(drive_auth_json['url'])
+
+    logger.info("User authorised")
+
+    # TODO: add extra func
+    return 'User has been authorised and credentials have been stored. More to do soon!'
 
 
 @file.route('/oauth2callback')
 def oauth2callback():
     # This will be the route that is called back from authorising the user with Google Drive
     file_api_client = FileApi()
-    drive_credentials_json = file_api_client.retrieve_credentials(session['state'], session['url'])
-    return drive_credentials_json
+    drive_credentials_json = file_api_client.retrieve_credentials(session['state'], request.url)
+
+    # Store the credentials, so that the file can be uploaded to the correct account
+    session['credentials'] = drive_credentials_json['credentials']
+
+    # Go to send_to_google_drive function to continue process
+    return send_to_google_drive()
