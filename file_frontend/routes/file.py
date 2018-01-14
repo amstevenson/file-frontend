@@ -24,11 +24,11 @@ def send_file():
     return redirect(url_for('file.drive_request'))
 
 
-@file.route("/drive-request", methods=["POST"])
+@file.route("/drive-request")
 def drive_request():
     if 'credentials' not in session:
         logger.info("User not authorised, requesting information through OAUTH2")
-        return redirect('drive.authorise')
+        return redirect(url_for('drive.authorise'))
 
     logger.info("User authorised")
 

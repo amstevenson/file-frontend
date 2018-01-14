@@ -52,6 +52,6 @@ def oauth2callback():
     # TODO: In a production version, id likely want to save these
     #              credentials in a persistent database instead.
     credentials = flow.credentials
-    session['credentials'] = credentials_to_dict(credentials)
+    #session['credentials'] = credentials_to_dict(credentials)
 
-    return redirect(url_for('file.drive_request'))
+    return url_for('drive.oauth2callback', _external=True)
