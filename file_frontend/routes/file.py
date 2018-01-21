@@ -78,7 +78,7 @@ def upload_file(file_name, file_path, file_type, destination):
 
     # Upload the file
     file_api_client = FileApi()
-    response = file_api_client.upload_file(file_length, file_type, session['token'], file_data)
+    response = file_api_client.upload_file(file_name, file_length, file_type, session['token'], file_data)
     logging.debug("Response from Google Drive upload is: {}".format(response))
 
     # Modify the metadata to include the name of the file

@@ -5,7 +5,7 @@ import json
 import requests
 from urllib.parse import quote
 from file_frontend.utils.driveutils import construct_upload_headers, construct_metadata_headers, \
-    construct_metadata_payload
+    construct_metadata_payload, construct_upload_body
 
 logger = logging.getLogger()
 
@@ -35,14 +35,15 @@ class FileApi(object):
 
         return json.loads(requests.get(_url).text)
 
-    def upload_file(self, content_length, file_type, auth_token, file_data):
+    def upload_file(self, file_name, content_length, file_type, auth_token, file_data):
         logging.info("Making request to Google Drive API's post endpoint")
-        headers = construct_upload_headers(file_type, content_length, auth_token)
+        headers = construct_upload_headers(content_length, auth_token)
+        data = construct_upload_body(file_name, file_type, file_data)
 
         _url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart'
         logging.debug("The request to upload_file is using url: {}".format(_url))
 
-        return json.loads(requests.post(_url, data=file_data, headers=headers).text)
+        return json.loads(requests.post(_url, data=data, headers=headers).text)
 
     def modify_file_metadata(self, file_name, file_type, auth_token, file_id):
         logging.info("Making request to Google Drive API's post endpoint to create a destination folder")
