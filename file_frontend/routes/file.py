@@ -1,10 +1,13 @@
 from flask import Blueprint, render_template, session, redirect, request
 from file_frontend.services.file_api import FileApi
 import logging
+import os
+from werkzeug import secure_filename
 
 file = Blueprint('file', __name__)
 
 logger = logging.getLogger()
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
 
 
 @file.route("/", methods=["GET"])
@@ -14,13 +17,39 @@ def index():
 
 @file.route("/send-file", methods=["POST"])
 def send_file():
-    # Detect what boxes were set in the html index template. Then proceed to either Dropbox or Google Drive
+    # Detect what boxes were set in the html index template.
     logger.info("Sending file for upload")
     session.clear()
-    session['directory'] = 'directory'
-    session['file_path'] = 'file_path'
 
-    # if radio button is google drive selected
+    # logger.info(request.files['file'])
+    # f = request.files['file']
+    # logger.info(f.filename)
+    # f.save(secure_filename(f.filename))
+    # os.remove(f)
+
+    # Retrieve the file
+    uploaded_file = request.files['file']
+    filename = secure_filename(uploaded_file.filename)
+
+    # Add values to session so that they can be used later - need to add these to a persistent database
+    destination = session['destination'] = request.form.get('destination')
+    session['filename'] = filename
+
+    if not destination or not filename:
+        return "Please enter a destination and select a file"
+
+    logger.debug("(Before authentication) Sending to Google Drive with destination of: {} and file of: {}"
+                 .format(destination, filename))
+
+    # logger.debug("OS PATH: {}".format(os.path.dirname(os.path.abspath(file_name))))
+
+    uploaded_file.save(UPLOAD_FOLDER, filename)
+    # uploaded_file.save(secure_filename(uploaded_file.filename))
+    remove_path = UPLOAD_FOLDER + '/' + filename
+    os.removedirs(filename)
+
+    # file_bytes = open(file_name)
+
     return send_to_google_drive()
 
 
