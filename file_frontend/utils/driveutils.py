@@ -27,8 +27,8 @@ def construct_upload_body(file_name, file_type, file_data):
         #                                    "\r\n\r\n" + "A string thing" + "\r\n--foo_bar_baz--"
 
         return "--foo_bar_baz\r\nContent-Type: application/json; charset=UTF-8" \
-               "\r\n\r\n\n" + file_name_json + "\r\n--foo_bar_baz\r\nContent-Type: " + file_type + \
-               "\r\n\r\n" + str(file_data) + "\r\n--foo_bar_baz--"
+               "\r\n\r\n\n {} \r\n--foo_bar_baz\r\nContent-Type: {} " \
+               "\r\n\r\n {} \r\n--foo_bar_baz--".format(file_name_json, file_type, file_data)
 
 
 def construct_metadata_headers(file_type, auth_token):

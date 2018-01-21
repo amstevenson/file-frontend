@@ -37,8 +37,8 @@ class FileApi(object):
 
     def upload_file(self, file_name, content_length, file_type, auth_token, file_data):
         logging.info("Making request to Google Drive API's post endpoint")
-        headers = construct_upload_headers(content_length, auth_token)
         data = construct_upload_body(file_name, file_type, file_data)
+        headers = construct_upload_headers(len(data), auth_token)
 
         _url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart'
         logging.debug("The request to upload_file is using url: {}".format(_url))
