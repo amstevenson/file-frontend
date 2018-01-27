@@ -58,7 +58,7 @@ input {
 }
 
 /* Heading */
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+h1, .h1, h2, .h2 {
     margin: 0 0 20px 0;
     padding: 0;
 }
@@ -71,26 +71,6 @@ h1, .h1 {
 h2, .h2 {
     font-size: 26px;
     line-height: 38px;
-}
-
-h3, .h3 {
-    font-size: 20px;
-    line-height: 32px;
-}
-
-h4, .h4 {
-    font-size: 16px;
-    line-height: 28px;
-}
-
-h5, .h5 {
-    font-size: 14px;
-    line-height: 24px;
-}
-
-h6, .h6 {
-    font-size: 12px;
-    line-height: 24px;
 }
 
 ul, ol {
@@ -113,10 +93,7 @@ p {
     font-family: "Lato", arial, sans-serif;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="search"],
+input[type="text"]
 textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -506,46 +483,14 @@ body.inner-page #header-image .header-image-wrap {
     background: #39bff9;
 }
 
-.btn-success {
-    background: #00e195;
-}
-
-.btn-danger {
-    background: #e02745;
-}
-
-.btn-info {
-    background: #0bbff2;
-}
-
-.btn-warning {
-    background: #ffd042;
-}
-
-.btn-primary,
-.btn-success,
-.btn-info,
-.btn-warning,
-.btn-danger {
+.btn-primary {
     border-color: transparent;
 }
 
 .btn-default:hover, .btn-default:active, .btn-default:focus,
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary:focus,
-.btn-success:hover,
-.btn-success:active,
-.btn-success:focus,
-.btn-info:hover,
-.btn-info:active,
-.btn-info:focus,
-.btn-warning:hover,
-.btn-warning:active,
-.btn-warning:focus,
-.btn-danger:hover,
-.btn-danger:active,
-.btn-danger:focus {
+.btn-primary:focus {
     background: #079edf;
     color: #ffffff;
 }
