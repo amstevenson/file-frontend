@@ -35,24 +35,22 @@ class FileApi(object):
 
         return json.loads(requests.get(_url).text)
 
-    def upload_file(self, content_length, file_type, auth_token, file_data):
+    def upload_file(self, content_length, file_type, auth_token, file_data, response_location):
         logging.info("Making request to Google Drive API's post endpoint")
         headers = construct_upload_headers(file_type, content_length, auth_token)
+        logging.debug("The request to upload_file is using url: {}".format(response_location))
 
-        _url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart'
-        logging.debug("The request to upload_file is using url: {}".format(_url))
+        return requests.put(response_location, data=file_data, headers=headers).text
 
-        return json.loads(requests.post(_url, data=file_data, headers=headers).text)
+    def upload_file_metadata(self, file_name, file_type, auth_token, file_length):
+        logging.info("Making request to Google Drive API's post endpoint to create file metadata")
+        headers = construct_metadata_headers(file_type, auth_token, file_length)
+        payload = json.dumps(construct_metadata_payload(file_name))
 
-    def modify_file_metadata(self, file_name, file_type, auth_token, file_id):
-        logging.info("Making request to Google Drive API's post endpoint to create a destination folder")
-        headers = construct_metadata_headers(file_type, auth_token)
-        payload = construct_metadata_payload(file_name, file_id)
-
-        _url = urljoin("https://www.googleapis.com/drive/v3/files/", "{0}".format(file_id))
+        _url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable"
         logging.debug("The request to modify_file_metadata is using url: {}".format(_url))
 
-        return json.loads(requests.patch(_url, data=payload, headers=headers).text)
+        return requests.post(_url, data=payload, headers=headers).headers.get('Location')
 
     def create_destination_folder(self, file_name, file_type, auth_token, id):
         logging.info("Making request to Google Drive API's post endpoint to modify metadata")
