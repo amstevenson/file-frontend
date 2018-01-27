@@ -7,6 +7,8 @@ If you are going to make use of this project, you will need to follow the steps 
 project (https://developers.google.com/drive/v3/web/quickstart/python). The secret file will need to be placed in the
 main directory of file-api.
 
+Refer to file-api's readme for more information about this.
+
 ## Running
 
 Can use a virtualenv, although there isn't much here for now. Quickest way is to use python ./manage.py runserver.
