@@ -76,15 +76,19 @@ def upload_file(file_name, file_path, file_type, destination):
     # Remove the temporary file that was saved at the start of the process
     os.remove(file_path)
 
-    # Upload the file
-    file_api_client = FileApi()
-    response = file_api_client.upload_file(file_length, file_type, session['token'], file_data)
-    logging.debug("Response from Google Drive upload is: {}".format(response))
-
-    # Modify the metadata to include the name of the file
+    # Upload the metadata to include the name of the file
     # file_id = response['id']
     # response = file_api_client.modify_file_metadata(file_name, file_type, session['token'], file_id)
     # logging.debug("Response from Google Drive modify metadata is: {}".format(response))
+
+    # Upload metadata and retrieve the resumeable upload location
+    file_api_client = FileApi()
+    response_location = file_api_client.upload_file_metadata(file_name, file_type, session['token'], file_length)
+    logging.debug("Response location from Google Drive metadata upload is: {}".format(response_location))
+
+    # Upload the file
+    response = file_api_client.upload_file(file_length, file_type, session['token'], file_data, response_location)
+    logging.debug("Response from Google Drive upload is: {}".format(response))
 
     # TODO: create a redirect page for this. Simple as.
     return 'File has been uploaded successfully'

@@ -15,18 +15,17 @@ def construct_upload_headers(file_type, content_length, auth_token):
         }
 
 
-def construct_metadata_headers(file_type, auth_token):
+def construct_metadata_headers(file_type, auth_token, file_length):
         return {
-                'Content-Type': file_type,
-                'Authorization': 'Bearer ' + auth_token
+                'Authorization': 'Bearer ' + auth_token,
+                'Content-Length': str(38),
+                'Content-Type': 'application/json; charset=UTF-8',
+                'X-Upload-Content-Type': file_type,
+                'X-Upload-Content-Length': str(file_length)
         }
 
 
-def construct_metadata_payload(title, file_id):
+def construct_metadata_payload(file_name):
         return {
-                'title': title,
-                'parentsCollection': [{
-                        'id': file_id
-                }],
-                'mimeType': 'application/json'
+                'name': file_name
         }
