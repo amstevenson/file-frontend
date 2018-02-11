@@ -26,9 +26,9 @@ or source venv/bin/activate - mac
     or "export FLASK_APP=manage.py" (for mac)
 5) flask run
 
-### Docker
+### Docker (still a work in progress)
 
 With purely docker (go to main directory):
 
-1) docker build -t file_frontend
+1) docker build -t file_frontend .
 2) docker run -p 8080:80 file_frontend
