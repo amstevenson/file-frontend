@@ -11,7 +11,9 @@ Refer to file-api's readme for more information about this.
 
 ## Running
 
-Can use a virtualenv, although there isn't much here for now. Quickest way is to use python ./manage.py runserver.
+### Fastest way (standalone):
+
+python3 ./manage.py runserver
 
 ### Virtualenv
 
@@ -23,3 +25,10 @@ or source venv/bin/activate - mac
     "set FLASK_APP=manage.py" (for windows)
     or "export FLASK_APP=manage.py" (for mac)
 5) flask run
+
+### Docker
+
+With purely docker (go to main directory):
+
+1) docker build -t file_frontend
+2) docker run -p 8080:80 file_frontend
